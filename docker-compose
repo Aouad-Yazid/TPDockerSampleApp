@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  loadbalancer:
+    image: jwilder/nginx-proxy 
+    ports:
+      - "8080:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+
+  nginx-service:
+    image: tpdockersample
+    environment:
+      VIRTUAL_HOST: localhost
+    deploy:
+      mode: replicated
+      replicas: 4
